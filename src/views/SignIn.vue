@@ -12,7 +12,7 @@
       <form
         class="form"
         @submit.prevent="onSubmit"
-        @input="$store.state.auth.errorMessage = null"
+        @input="$store.state.auth.signInError = null"
       >
         <label for="email" class="label">Email </label>
         <input
@@ -37,7 +37,7 @@
 
         <input type="submit" value="Sign In" class="submit" />
 
-        <p class="error-message">{{ this.$store.state.auth.errorMessage }}</p>
+        <p class="error-message">{{ this.$store.state.auth.signInError }}</p>
       </form>
     </div>
   </div>
@@ -52,9 +52,6 @@ export default {
       email: '',
       password: '',
     };
-  },
-  mounted() {
-    this.$store.state.auth.errorMessage = null;
   },
   methods: {
     ...mapActions(['signIn']),

@@ -10,7 +10,7 @@
       <form
         class="form"
         @submit.prevent="onSubmit"
-        @input="$store.state.auth.errorMessage = null"
+        @input="$store.state.auth.signUpError = null"
       >
         <label for="first-name" class="label">First name </label>
         <input
@@ -58,7 +58,7 @@
 
         <input type="submit" value="Sign Up" class="submit" />
 
-        <p class="error-message">{{ this.$store.state.auth.errorMessage }}</p>
+        <p class="error-message">{{ this.$store.state.auth.signUpError }}</p>
       </form>
     </div>
   </div>
@@ -75,9 +75,6 @@ export default {
       email: '',
       password: '',
     };
-  },
-  mounted() {
-    this.$store.state.auth.errorMessage = null;
   },
   methods: {
     ...mapActions(['signUp']),
