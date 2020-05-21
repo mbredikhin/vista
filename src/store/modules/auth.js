@@ -1,4 +1,4 @@
-import firebase from 'firebase';
+import { db, auth } from '@/firebase';
 import router from '@/router';
 
 export default {
@@ -23,27 +23,23 @@ export default {
   },
 
   actions: {
-    signOut({ commit, state }) {
-      firebase
-        .auth()
-        .signOut()
-        .then(function() {
-          state.user.loggedIn = false;
-          state.user.email = null;
-          state.user.name = null;
-          state.user.uid = null;
-          state.errorMessage = null;
-        })
-        .catch(function(error) {
-          console.log('Sign out error', error);
-        });
+    async signOut({ commit, state }) {
+      try {
+        await auth.signOut();
+        state.user = {
+          loggedIn: false,
+          email: null,
+          name: null,
+          uid: null,
+        }
+      } catch( error ) {
+        console.log('Sign out error', error);
+      }
     },
 
     async signIn({ commit, state }, { email, password }) {
       state.signInError = null;
-      const auth = firebase.auth();
       let credential = null;
-
       try {
         credential = await auth.signInWithEmailAndPassword(email, password);
       } catch (error) {
@@ -61,25 +57,10 @@ export default {
         router.push('/');
       }
       console.log(state);
-      // firebase
-      //   .auth()
-      //   .signInWithEmailAndPassword(email, password)
-      //   .then((user) => {
-      //     state.user.loggedIn = true;
-      //     state.user.email = user.email;
-      //     state.user.name = user.displayName;
-      //     state.user.uid = user.uid;
-      //     state.errorMessage = null;
-      //     router.push('/');
-      //   })
-      //   .catch((error) => {
-      //     state.errorMessage = error.message;
-      //   });
     },
 
     async signUp({ dispatch, state }, { email, password, name }) {
       state.errorMessage = null;
-      const auth = firebase.auth();
       let credential = null;
       try {
         credential = await auth.createUserWithEmailAndPassword(email, password);
@@ -90,16 +71,16 @@ export default {
         await credential.user.updateProfile({ displayName: name });
         state.user.name = credential.user.displayName;
         router.push('/');
-        dispatch('addUserToDatabase', credential.user);
+        dispatch('addUserToDb', credential.user);
       }
     },
 
-    async addUserToDatabase(context, { email, displayName, uid }) {
-      const database = firebase.database();
-      database.ref(`users/${uid}`).set({
+    async addUserToDb(context, { email, displayName, uid }) {
+      db.collection(`users`).add({
         name: displayName,
         email,
-      });
+        uid
+      })
     },
   },
 };

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+import { auth } from './firebase';
 import { mapMutations } from 'vuex';
 
 export default {
@@ -13,13 +13,7 @@ export default {
     ...mapMutations(['setUser']),
   },
   created() {
-    // debug
-    // this.$router.beforeEach((to, from, next) => {
-    //   console.log(firebase.auth().currentUser);
-    //   next();
-    // });
-
-    firebase.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         this.setUser(user);
       } else {
