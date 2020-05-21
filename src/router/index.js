@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import Main from '@/views/Main.vue';
+import Home from '@/views/Home.vue';
 import SignIn from '@/views/SignIn.vue';
 import SignUp from '@/views/SignUp.vue';
 import QuickTest from '@/views/QuickTest.vue';
@@ -11,8 +11,8 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: '/',
-    name: 'Main Page',
-    component: Main,
+    name: 'Home Page',
+    component: Home,
   },
   {
     path: '/login',
