@@ -1,3 +1,7 @@
+// function getRandomInt(max) {
+//   return Math.floor(Math.random() * Math.floor(max));
+// }
+
 export default {
   state: {
     reading: [
@@ -379,5 +383,10 @@ export default {
         correct: 'touch',
       },
     ],
+  },
+  getters: {
+    getReadingTasks(state) {
+      return (n) => state.reading.sort(() => 0.5 - Math.random()).slice(0, n);
+    },
   },
 };
