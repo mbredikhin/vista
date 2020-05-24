@@ -1,44 +1,65 @@
 <template>
-  <div class="wrap">
-    <div class="sign-in">
-      <router-link to="/" tag="h1" class="home-link">Vista</router-link>
-      <span class="header">Welcome back to Vista.</span>
-      <br />
-      <span class="new">New here? </span>
-      <router-link to="/registration" class="link"
-        >Create an account</router-link
+  <div class="w-screen h-screen g-blue flex justify-center items-center">
+    <div class="w-1/4 bg-white shadow-md rounded p-8 flex flex-col">
+      <router-link to="/" tag="h2" class="link--home">Vista</router-link>
+      <span class="font-medium">Welcome back to Vista.</span>
+      <span
+        >New here?
+        <router-link
+          to="/registration"
+          class="text-blue-700 font-medium underline"
+          >Create an account</router-link
+        ></span
       >
 
       <form
-        class="form"
         @submit.prevent="onSubmit"
         @input="$store.state.auth.signInError = null"
       >
-        <label for="email" class="label">Email </label>
+        <label
+          class="block text-gray-700 text-sm font-bold mt-6 mb-2"
+          for="email"
+        >
+          Email
+        </label>
         <input
-          required
+          class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           type="email"
           id="email"
           v-model="email"
-          class="input"
-          placeholder="Enter email"
+          placeholder="jane@example.com"
+          minlength="6"
+          required
         />
 
-        <label for="password" class="label">Password </label>
+        <label
+          class="block text-gray-700 text-sm font-bold mt-6 mb-2"
+          for="password"
+          >Password
+        </label>
         <input
-          required
+          class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
           type="password"
           id="password"
           v-model="password"
-          class="input"
-          placeholder="Password"
+          placeholder="******"
           minlength="6"
+          required
         />
-
-        <input type="submit" value="Sign In" class="submit" />
-
-        <p class="error-message">{{ this.$store.state.auth.signInError }}</p>
+        <button
+          class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:shadow-outline mt-8 float-right"
+          type="submit"
+        >
+          Sign In
+        </button>
       </form>
+      <div
+        class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+        role="alert"
+        v-if="this.error"
+      >
+        <span class="block sm:inline">{{ this.error }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -52,6 +73,11 @@ export default {
       email: '',
       password: '',
     };
+  },
+  computed: {
+    error() {
+      return this.$store.state.auth.signInError;
+    },
   },
   methods: {
     ...mapActions(['signIn']),
@@ -69,113 +95,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrap {
-  width: 100vw;
-  height: 100vh;
-  background: #a8c0ff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #3f2b96,
-    #a8c0ff
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #3f2b96,
-    #a8c0ff
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.g-blue {
+  background: -webkit-linear-gradient(to right, #3f2b96, #a8c0ff);
+  background: linear-gradient(to right, #3f2b96, #a8c0ff);
 }
 
-.sign-in {
-  width: 28rem;
-  height: auto;
-  padding: 3rem;
-  box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.253);
-  border-radius: 8px;
-  font-family: 'Roboto', sans-serif;
-  background-color: #fff;
-}
-
-.home-link {
+.link--home {
+  display: inline-block;
   font-family: 'Damion', sans-serif;
+  color: #3f2b96;
   font-size: 3rem;
-  color: #2d4081;
-  margin-bottom: 1rem;
-  line-height: 1;
-  font-weight: 400;
   &:hover {
     cursor: pointer;
   }
-}
-
-.header {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 2rem;
-}
-
-.new {
-  font-size: 0.85rem;
-  color: #494949;
-  font-weight: 500;
-}
-
-.link {
-  font-size: 0.85rem;
-  color: #5443a0;
-  font-weight: 500;
-}
-
-.form {
-  display: flex;
-  flex-flow: column nowrap;
-}
-
-.label {
-  color: #494949;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 1.5rem 0 0 0;
-}
-
-.input {
-  outline: none;
-  margin: 0.5rem 0;
-  padding: 0.75rem 0.5rem;
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  border-radius: 4px;
-  border: 2px solid #c5c5c5;
-
-  &:focus {
-    border-color: #494949;
-  }
-}
-
-.submit {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  font-weight: 500;
-  color: white;
-  background: #5443a0;
-  border: none;
-  border-radius: 6px;
-  padding: 1rem;
-  margin: 2.25rem 0 0;
-  outline: none;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.error-message {
-  font-size: 0.85rem;
-  color: #eb7171;
-  height: auto;
-  padding: 1rem 0 0;
 }
 </style>
