@@ -56,7 +56,6 @@ export default {
         state.signInError = null;
         router.push('/');
       }
-      console.log(state);
     },
 
     async signUp({ dispatch, state }, { email, password, name }) {
@@ -76,11 +75,11 @@ export default {
     },
 
     async addUserToDb(context, { email, displayName, uid }) {
-      db.collection(`users`).add({
-        name: displayName,
-        email,
-        uid
-      })
+      // db.collection(`users`).add({
+      //   name: displayName,
+      //   email,
+      //   uid
+      // })
     },
   },
 };

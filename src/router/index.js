@@ -2,32 +2,35 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import SignIn from '@/views/SignIn.vue';
-import SignUp from '@/views/SignUp.vue';
-import QuickTest from '@/views/QuickTest.vue';
+import Login from '@/views/Login.vue';
+import Registration from '@/views/Registration.vue';
+import Quick from '@/views/Quick.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home Page',
+    name: 'Home',
     component: Home,
   },
+
   {
     path: '/login',
     name: 'Login Page',
-    component: SignIn,
+    component: Login,
   },
+
   {
     path: '/registration',
-    name: 'Register Page',
-    component: SignUp,
+    name: 'Registration',
+    component: Registration,
   },
+
   {
-    path: '/quick-test',
-    name: 'Quick test',
-    component: QuickTest,
+    path: '/quick',
+    name: 'Quick testing',
+    component: Quick,
   },
 ];
 

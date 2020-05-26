@@ -4,47 +4,55 @@
       Welcome, you are about to start the {{ sectionLength * 2 }}-minute
       {{ testName }}
     </h3>
+
     <div class="schema">
       <div class="wrap">
         <img class="wrap__image" src="@/assets/open-book.png" />
         <span class="wrap__name">Reading</span>
-        <b class="wrap__time">{{ sectionLength }} mins</b>
+        <b class="wrap__time">{{ sectionLength }} мин</b>
       </div>
       <b class="sign"> + </b>
       <div class="wrap">
         <img class="wrap__image" src="@/assets/headphone.png" />
         <span class="wrap__name">Listening</span>
-        <b class="wrap__time">{{ sectionLength }} mins</b>
+        <b class="wrap__time">{{ sectionLength }} мин</b>
       </div>
       <b class="sign"> = </b>
       <div class="wrap">
         <img class="wrap__image" src="@/assets/stopwatch.png" />
-        <span class="wrap__name">Total time</span>
-        <b class="wrap__time">{{ sectionLength * 2 }} mins</b>
+        <span class="wrap__name">Всего</span>
+        <b class="wrap__time">{{ sectionLength * 2 }} мин</b>
       </div>
     </div>
+
     <hr />
-    <ul class="info">
-      <li class="info__item">
-        This test has two sections: Reading and Listening
+
+    <ul class="list-disc pl-5 my-6">
+      <li class="leading-10">
+        Тест состоит из двух разделов: Reading и Listening
       </li>
-      <li class="info__item">
-        You will start with a {{ sectionLength }}-minute Reading section.
+      <li class="leading-10">
+        Вы начнете с {{ sectionLength }}-минутного теста из раздела Reading.
       </li>
-      <li class="info__item">
-        Pace yourself to avoid running out of time.
+      <li class="leading-10">
+        Стараыйтесь следить за оставшимся временем.
       </li>
-      <li class="info__item">
-        You will not lose points for wrong answers.
+      <li class="leading-10">
+        Вы не потеряете баллы за неверные ответы.
       </li>
-      <li class="info__item">Once you click "Next" you cannot go back.</li>
     </ul>
-    <button class="card__button" @click="onSubmit">Start the test</button>
+
+    <button
+      class="w-32 self-end bg-blue-500 hover:bg-blue-600 text-white font-medium py-3 rounded-lg"
+      @click="onSubmit"
+      v-show="isSubmitActive"
+    >
+      Начать тест
+    </button>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader';
 
 export default {
   props: {
@@ -56,7 +64,14 @@ export default {
       type: Number,
       required: true,
     },
+    isSubmitActive: {
+      type: Boolean,
+      required: true
+    }
   },
+
+  name: 'welcome',
+
   methods: {
     onSubmit() {
       this.$emit('submit');
@@ -69,9 +84,11 @@ export default {
 .card {
   width: 36rem;
   height: auto;
-  background: #f7f7ff;
+  background: white;
   padding: 3rem;
   border-radius: 6px;
+  display: flex;
+  flex-flow: column nowrap;
 }
 
 .card__title {
@@ -106,36 +123,5 @@ export default {
 
 .sign {
   font-size: 2.25rem;
-}
-
-hr {
-  border: none;
-  height: 1px;
-  background: #dddddd;
-}
-
-.info {
-  padding: 2.5rem 1rem;
-}
-
-.info__item {
-  line-height: 2.5;
-}
-
-.card__button {
-  background: #79b4f8;
-  font-size: 1.05rem;
-  font-weight: 500;
-  font-family: 'Roboto', sans-serif;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  padding: 1rem 2rem;
-  transition: 0.2s;
-  float: right;
-  &:hover {
-    cursor: pointer;
-    box-shadow: 2px 2px 7px #dad8e4;
-  }
 }
 </style>

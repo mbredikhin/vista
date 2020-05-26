@@ -1,6 +1,6 @@
 <template>
   <main class="main">
-    <App-Header></App-Header>
+    <Navigation></Navigation>
     <section class="section section--one">
       <div class="section__wrap">
         <h1 class="section__header section__header--one">
@@ -63,11 +63,11 @@
 </template>
 
 <script>
-import AppHeader from '@/components/AppHeader.vue';
+import Navigation from '@/components/Navigation.vue';
 
 export default {
   components: {
-    AppHeader,
+    Navigation,
   },
 };
 </script>

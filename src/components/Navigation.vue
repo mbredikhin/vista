@@ -1,20 +1,18 @@
 <template>
-  <header class="app-header">
-    <router-link to="/" tag="div" class="brand">
-      <!-- <img src="@/assets/logo.svg" class="brand__logo" /> -->
-      Vista
-    </router-link>
+  <header class="app-header bg-white">
+    <router-link to="/" tag="div" class="brand">Vista</router-link>
 
     <nav class="menu">
       <div class="menu__item">
         <span class="menu-text">
           Our tests
         </span>
+
         <ul class="dropdown">
-          <router-link tag="li" to="/quick-test" class="dropdown__item"
+          <router-link tag="li" to="/quick" class="dropdown__item"
             >Quick check (15 min)</router-link
           >
-          <router-link tag="li" to="/full-test" class="dropdown__item"
+          <router-link tag="li" to="/full" class="dropdown__item"
             >Full test (50 min)</router-link
           >
         </ul>
@@ -104,7 +102,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 6px 0px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.25);
 }
 
 .brand {
